@@ -1,0 +1,50 @@
+---
+import "@assets/css/hero/basic_hero.css";
+import { Icon } from "astro-icon/components";
+
+import CustomImage from "../ImageComponent.astro";
+const { hero, values } = Astro.props;
+---
+
+<header class="hero basic-hero ">
+  <div class="basic-hero__wrapper">
+    <article class="basic-hero__content-wrapper">
+      <div class="content-grid">
+          {
+            values && (
+              <ul>
+                {values
+                  .split(",")
+                  .sort((a: string, b: string) => a.localeCompare(b))
+                  .map((value: string) => (
+                    <li>
+                      <Icon
+                        name="mdi:check-circle"
+                        aria-hidden="true"
+                        focusable="false"
+                        class="text-current"
+                      />
+                      {value}
+                    </li>
+                  ))}
+              </ul>
+            )
+          }
+          <h1>
+            {hero?.title}
+          </h1>
+          <p>
+            {hero?.excerpt}
+          </p>
+      </div>
+    </article>
+
+    <div class="basic-hero__image-wrapper">
+        <CustomImage
+          classes="object-cover object-right w-full h-full"
+          image={hero?.expand?.image}
+          lazy={false}
+        />
+      </div>
+  </div>
+</header>

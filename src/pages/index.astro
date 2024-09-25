@@ -1,16 +1,94 @@
 ---
+import {getPage} from "@src/pocketbase";
+import { AstroFont } from "astro-font";
+import { SEO } from "astro-seo";
+import { GoogleAnalytics } from "astro-analytics";
+import "@assets/css/global.css";
+import "@assets/css/reset.css";
 
+import PageSection from "@components/PageSection.astro";
+import TinyFooter from "@components/footer/TinyFooter.astro";
+import PageHero from "@components/PageHero.astro";
+import PageNavigation from "@components/PageNavigation.astro";
+
+interface Languages {
+	[key: string]: string
+}
+
+const languages: Languages = {
+  ke: "en",
+  cbv: "pt-cv",
+  moc: "pt-mz",
+}
+
+const data = await getPage()
+const country = languages[data?.Country]
+const hero = data?.expand?.hero
+const pages = data?.expand?.pages
+const details = data?.expand?.site_details
+const theme_color = data?.expand?.site_details?.theme_color
 ---
 
-<html lang="en">
+<html lang={country ?? "en"}>
 	<head>
 		<meta charset="utf-8" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
+		<SEO 
+		title={details?.title}
+		description={details?.description}
+		openGraph={{
+			basic: {
+				title: details?.title,
+				image: '/favicon/android-chrome-512x512.png',
+				type: 'website',
+				url: details?.url
+			}
+		}}
+		twitter={{
+			creator: "@yellowpages254",
+			title: details?.title,
+			description: details?.description,
+			image: '/favicon/android-chrome-512x512.png'
+		}}
+		/>
+		<AstroFont
+      config={[
+        {
+          src: [],
+          name: "Work Sans",
+          googleFontsURL:
+            "https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap",
+          preload: true,
+          display: "swap",
+          selector: "body",
+          fallback: "sans-serif",
+          cssVariable: "font-body",
+        },
+        {
+          src: [],
+          name: "DM Sans",
+          googleFontsURL:
+            "https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap",
+          preload: true,
+          display: "swap",
+          selector: "h1,h2,h3,h4,h5,h6",
+          fallback: "sans-serif",
+          cssVariable: "font-heading",
+        },
+      ]}
+    />
+	<GoogleAnalytics id={details?.google_analytics} />
 	</head>
 	<body>
-		<h1>Astro</h1>
+		<PageNavigation floating={false} />
+		<main>
+			<PageHero hero={hero} value={details?.core_values}/>
+			<PageSection />
+		</main>
+		<TinyFooter details={details}/>
 	</body>
 </html>
+
+<style define:vars={{ theme_color }} is:global></style>

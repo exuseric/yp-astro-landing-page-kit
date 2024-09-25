@@ -1,0 +1,32 @@
+---
+import VerticalBlocks from "@components/hero/VerticalBlocks.astro";
+import HorizontalBlocks from "@components/hero/HorizontalBlocks.astro";
+import TwoColumns from "@components/hero/TwoColumns.astro";
+import Basic from "@components/hero/Basic.astro";
+
+const { hero, values } = Astro.props;
+const version = hero.version;
+---
+<!-- <Blob /> -->
+{
+  version === "vertical blocks" && (
+    /* Requires Multiple Content */
+    <VerticalBlocks hero={hero} values={values} />
+  )
+}
+
+{
+  version === "horizontal blocks" && (
+    <HorizontalBlocks hero={hero} values={values} />
+  )
+}
+{
+  version === "two columns" && (
+    <TwoColumns hero={hero} values={values} />
+  )
+}
+{
+  version === "basic" && (
+    <Basic hero={hero} values={values} />
+  )
+}

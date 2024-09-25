@@ -1,0 +1,7 @@
+---
+import FloatingNav from "@components/navigation/FloatingNav.astro";
+import RelativeNav from "./navigation/RelativeNav.astro";
+const {floating} = Astro.props
+---
+
+{floating ? <FloatingNav /> : <RelativeNav />}

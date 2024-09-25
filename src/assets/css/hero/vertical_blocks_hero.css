@@ -1,0 +1,131 @@
+/* Style 5 Hero */
+.vertical-block-hero {
+  --radius: 0.85em;
+  --padding: 0.5em;
+
+  padding: var(--padding) 0;
+}
+
+.vertical-block-hero__content-wrapper {
+  display: grid;
+  grid-template-rows: repeat(2, auto);
+  gap: var(--padding);
+
+  border-radius: calc(var(--radius) + var(--padding));
+  background-color: var(--primary);
+  padding: calc(var(--padding) * 1.5);
+}
+
+.vertical-block-hero__content-wrapper-content {
+  --_padding: 0.3em;
+  color: white;
+  height: max-content;
+  padding: var(--_padding);
+}
+
+.vertical-block-hero__content-wrapper-image {
+  height: 300px;
+  overflow: hidden;
+  border-radius: var(--radius);
+  /* background-color: var(--primary-darker); */
+}
+
+.vertical-block-hero__content-wrapper-image>img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.content-col-grid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: var(--padding);
+  padding: var(--padding) 0;
+}
+
+.content-col-grid__content {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+
+  color: white;
+  padding: calc(var(--padding) * 2);
+  border-radius: var(--radius);
+}
+
+.content-col-grid__content:nth-child(1) {
+  background-color: var(--primary-dark);
+}
+
+.content-col-grid__content:nth-child(2) {
+  background-color: var(--secondary);
+}
+
+.content-col-grid__content:nth-child(3) {
+  background-color: var(--tertiary);
+}
+
+@media (min-width: 50em) {
+  .vertical-block-hero {
+    --radius: 0.85em;
+    --padding: 0.5em;
+  }
+
+  .vertical-block-hero__content-wrapper {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 300px;
+    align-items: center;
+    gap: var(--padding);
+
+    padding: var(--padding);
+  }
+
+  .vertical-block-hero__content-wrapper-content {
+    --_padding: 2em;
+    max-width: 65ch;
+    grid-column: 1 / -2;
+  }
+
+  .vertical-block-hero__content-wrapper-image {
+    height: 100%;
+  }
+
+  .content-col-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 1fr;
+    gap: var(--padding);
+    padding: var(--padding) 0;
+  }
+
+  .content-col-grid__content {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+
+    color: white;
+    padding: calc(var(--padding) * 2.5);
+    border-radius: var(--radius);
+  }
+
+  .content-col-grid__content:nth-child(1) {
+    background-color: var(--primary-dark);
+  }
+
+  .content-col-grid__content:nth-child(2) {
+    background-color: var(--secondary);
+  }
+
+  .content-col-grid__content:nth-child(3) {
+    background-color: var(--tertiary);
+  }
+}
+
+/* End of Style 5 Hero */

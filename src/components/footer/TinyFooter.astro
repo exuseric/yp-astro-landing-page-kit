@@ -1,0 +1,30 @@
+---
+import { Image } from 'astro:assets';
+import YPLogo from '@assets/images/yellow-pages-logo.webp';
+const {details} = Astro.props;
+---
+
+<footer class="tiny-footer">
+    <div class="content-grid">
+        <div class="tiny-footer__wrapper">
+            <p>
+                Copyright &copy; {new Date().getFullYear()}
+                {details?.title.split("|")[0].trim()}. <wbr>All&nbsp;Rights&nbsp;Reserved.
+            </p>
+            <a
+                href={details?.parent_site_url}
+                class="tiny-footer__link"
+                aria-labelledby="yellow-pages"
+                target="_blank"
+            >
+                <Image
+                    src={YPLogo}
+                    width={YPLogo?.width}
+                    height={YPLogo?.height}
+                    alt="Yellow Pages Logo"
+                />
+                <span id="yellow-pages">Designed by {details?.parent_site_title}</span>
+            </a>
+        </div>
+    </div>
+</footer>

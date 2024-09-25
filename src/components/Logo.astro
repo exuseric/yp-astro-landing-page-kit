@@ -1,0 +1,33 @@
+---
+const { logo, collection, siteName, classes } = Astro.props;
+import Image from "astro/components/Image.astro";
+import { getImageUrl } from "@src/pocketbase";
+---
+
+<a
+    href="/"
+    class="site-logo"
+>
+    {
+        logo ? (
+            <Image
+                class="site-logo__image"
+                src={getImageUrl({
+                    collection: collection,
+                    filename: logo,
+                })}
+                loading="eager"
+                decoding="sync"
+                alt={siteName}
+                widths={[240, 400, 600, 800, 1000]}
+                sizes={`(max-width: 360px) 240px, (max-width: 500px) 400px, (max-width: 768px) 600px, (max-width: 1024px) 800px, 1000px`}
+                inferSize
+            />
+            <span class="site-logo__name">{siteName}</span>
+        ) : (
+            <span class="site-logo__name">
+                {siteName}
+            </span>
+        )
+    }
+</a>

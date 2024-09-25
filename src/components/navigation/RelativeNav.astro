@@ -1,0 +1,89 @@
+---
+import {getPage} from "@src/pocketbase";
+import Logo from "../Logo.astro";
+import { Icon } from "astro-icon/components";
+import "@assets/css/navigation/relative-nav.css";
+const data = await getPage()
+const details = data?.expand?.site_details
+---
+
+<header class="relative-nav">
+  <div class="content-grid">
+    <div class="relative-nav-wrapper">
+      <div class="relative-nav-actions">
+        <Logo
+          siteName={details?.title.split("|")[0].trim()}
+          collection={details}
+          logo={details?.logo}
+        />
+        <button
+          class="relative-nav-menu-toggle button"
+          aria-label="Menu Toggle"
+          aria-expanded="false"
+          aria-controls="relative-nav-menu"
+          data-type="icon"
+        >
+          <span class="visually-hidden">Menu</span>
+          <Icon name="mdi:menu" class="menu-icon" />
+          <Icon name="mdi:close" class="close-icon" />
+        </button>
+      </div>
+      <nav class="relative-nav-menu" id="relative-nav-menu">
+        <menu class="relative-nav-menu-list">
+          {
+            details?.links.map((link: string, idx: number) => (
+              <li>
+                <a
+                  class={`relative-nav__link ${idx === details?.links.length - 1 && "relative-nav__link--active"}`}
+                  href={idx !== 0 ? `#${link.split(" ").join("-")}` : "/"}
+                >
+                  {link}
+                </a>
+              </li>
+            ))
+          }
+        </menu>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<script>
+  interface Props {
+    [key: string]: Element
+  }
+
+  function colorTransition({header}: Props) {
+      const matchMedia = () => window.matchMedia("(min-width:50em)").matches;
+      const elHeight = header.getBoundingClientRect().height;
+      document.addEventListener("scroll", () => {
+        const scrollY = window.scrollY || document.documentElement.scrollTop;
+      console.log(scrollY, elHeight);
+      if (scrollY > elHeight) {
+        header.setAttribute("data-visible", "true");
+      } else {
+        header.setAttribute("data-visible", "false");
+      }
+    });
+  }
+
+  function toggleMenu({toggle, menu}: Props) {
+    toggle?.addEventListener("click", () => {
+      menu?.toggleAttribute("data-active");
+      menu?.toggleAttribute("data-overlay");
+      toggle.setAttribute(
+        "aria-expanded",
+        String(toggle.getAttribute("aria-expanded") !== "true")
+      );
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const header = document.querySelector(".relative-nav");
+    const toggle = document.querySelector(".relative-nav-menu-toggle");
+    const menu = document.querySelector(".relative-nav-menu");
+
+    if(toggle && menu) toggleMenu({toggle, menu});
+    if(header) colorTransition({header});
+  });
+</script>

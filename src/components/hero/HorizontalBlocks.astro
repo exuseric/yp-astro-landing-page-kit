@@ -1,0 +1,47 @@
+---
+import "@assets/css/hero/horizontal_blocks_hero.css";
+import { Icon } from "astro-icon/components";
+
+import CustomImage from "../ImageComponent.astro";
+const { hero, values } = Astro.props;
+---
+
+<header class="hero horizontal-blocks-hero content-grid" data-large-screen>
+  <div class="horizontal-blocks-hero__wrapper">
+    <div class="horizontal-blocks-hero__image-wrapper">
+      <CustomImage
+        classes="object-cover w-full h-full sm:h-full"
+        image={hero?.expand?.image}
+        lazy={false}
+      />
+    </div>
+    <article class="horizontal-blocks-hero__content-wrapper">
+      <h1>
+        {hero?.title}
+      </h1>
+      <p>
+        {hero?.excerpt}
+      </p>
+    </article>
+    {
+      values && (
+        <ul class="horizontal-blocks-hero__values">
+          {values
+            .split(",")
+            .sort((a: string, b: string) => a.localeCompare(b))
+            .map((value: string) => (
+              <li>
+                {/* <Icon
+                  name="mdi:check-circle"
+                  aria-hidden="true"
+                  focusable="false"
+                  class="text-current"
+                /> */}
+                {value}
+              </li>
+            ))}
+        </ul>
+      )
+    }
+  </div>
+</header>

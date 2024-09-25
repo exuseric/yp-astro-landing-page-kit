@@ -1,0 +1,91 @@
+---
+import {getPage} from "@src/pocketbase";
+import { Icon } from "astro-icon/components";
+import Logo from "@components/Logo.astro";
+// const { siteName, collection, logo, links } = Astro.props;
+import "@assets/css/navigation/floating-nav.css";
+
+const data = await getPage()
+const details = data?.expand?.site_details
+---
+
+<header class="floating-nav">
+  <div class="content-grid">
+    <div class="floating-nav-wrapper">
+      <div class="floating-nav-actions">
+        <Logo
+          siteName={details?.title.split("|")[0].trim()}
+          collection={details}
+          logo={details?.logo}
+        />
+        <button
+          class="floating-nav-menu-toggle button"
+          aria-label="Menu Toggle"
+          aria-expanded="false"
+          aria-controls="floating-nav-menu"
+          data-type="icon"
+        >
+          <span class="visually-hidden">Menu</span>
+          <Icon name="mdi:menu" class="menu-icon" />
+          <Icon name="mdi:close" class="close-icon" />
+        </button>
+      </div>
+      <nav class="floating-nav-menu" id="floating-nav-menu">
+        <menu class="floating-nav-menu-list">
+          {
+            details?.links.map((link: string, idx: number) => (
+              <li>
+                <a
+                  class={`floating-nav__link ${idx === details?.links.length - 1 && "floating-nav__link--active"}`}
+                  href={idx !== 0 ? `#${link.split(" ").join("-")}` : "/"}
+                >
+                  {link}
+                </a>
+              </li>
+            ))
+          }
+        </menu>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<script>
+  interface Props {
+    [key: string]: Element
+  }
+
+  function colorTransition({header}: Props) {
+      const matchMedia = () => window.matchMedia("(min-width:50em)").matches;
+      const elHeight = header.getBoundingClientRect().height;
+      document.addEventListener("scroll", () => {
+        const scrollY = window.scrollY || document.documentElement.scrollTop;
+      console.log(scrollY, elHeight);
+      if (scrollY > elHeight) {
+        header.setAttribute("data-visible", "true");
+      } else {
+        header.setAttribute("data-visible", "false");
+      }
+    });
+  }
+
+  function toggleMenu({toggle, menu}: Props) {
+    toggle?.addEventListener("click", () => {
+      menu?.toggleAttribute("data-active");
+      menu?.toggleAttribute("data-overlay");
+      toggle.setAttribute(
+        "aria-expanded",
+        String(toggle.getAttribute("aria-expanded") !== "true")
+      );
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const header = document.querySelector(".floating-nav");
+    const toggle = document.querySelector(".floating-nav-menu-toggle");
+    const menu = document.querySelector(".floating-nav-menu");
+
+    if(toggle && menu) toggleMenu({toggle, menu});
+    if(header) colorTransition({header});
+  });
+</script>

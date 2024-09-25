@@ -1,0 +1,25 @@
+---
+import { Image } from "astro:assets";
+import { getImageUrl } from "@src/pocketbase";
+const { image, lazy } = Astro.props;
+---
+
+{
+  image && (
+    <Image
+      src={getImageUrl({
+        collection: image,
+        filename: image?.image,
+      })}
+      widths={[240, 400, 1000]}
+      sizes={`(max-width: 360px) 240px, (max-width: 500px) 400px, 1000px`}
+      inferSize
+      alt={image?.alt}
+      title={image?.title}
+      loading={lazy ? "lazy" : "eager"}
+      decoding={lazy ? "async" : "sync"}
+      fetchpriority={lazy ? "low" : "high"}
+      class="hero-image"
+    />
+  )
+}

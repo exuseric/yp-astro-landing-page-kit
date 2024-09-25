@@ -1,0 +1,59 @@
+---
+import { Image } from "astro:assets";
+import { getImageUrl } from "../../pb";
+import { Icon } from "astro-icon/components";
+const { hero, values } = Astro.props;
+
+const {
+    title,
+    excerpt,
+    expand: { image },
+} = hero;
+---
+<header
+    class="flex flex-col mb-64 items-center justify-center px-4 pt-8 mx-auto sm:max-w-xl md:max-w-full lg:pt-16 md:px-0 scroll-m-24"
+>
+    <div class="flex flex-col items-center max-w-2xl md:px-8">
+        <div class="max-w-xl md:mx-auto sm:text-center lg:max-w-2xl">
+            <h1
+                class="max-w-lg mb-2 font-sans text-3xl font-bold leading-none tracking-tight sm:text-4xl md:mx-auto text-amber-600"
+            >
+                {title}
+            </h1>
+            <p class="text-base md:text-lg">
+                {excerpt}
+            </p>
+        </div>
+        <ul
+            class="container flex flex-col md:flex-row items-center justify-between py-2 gap-2 border-t border-t-neutral-400 border-b border-b-neutral-400 max-w-prose my-4"
+        >
+            {
+                values &&
+                    values.split(",").map((value) => (
+                        <li class="flex flex-col items-center gap-1 px-4 py-2  text-base font-semibold">
+                            <Icon
+                                name="mdi:check-circle"
+                                aria-hidden="true"
+                                focusable="false"
+                                class="text-amber-600"
+                            />
+                            {value}
+                        </li>
+                    ))
+            }
+        </ul>
+    </div>
+    <Image
+        src={getImageUrl({
+            collection: image,
+            filename: image.image
+        })}
+        alt={image.title}
+        widths={[240, 400, 600, 800]}
+        sizes={`(max-width: 360px) 240px, (max-width: 500px) 400px, (max-width: 768px) 600px, 800px`}
+        inferSize
+        class={`object-cover object-${image.focus} w-full h-20 mx-auto xl:h-96 xl:mr-24`}
+        loading="eager"
+        decoding="sync"
+    />
+</header>

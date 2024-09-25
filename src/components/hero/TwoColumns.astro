@@ -1,0 +1,47 @@
+---
+import { Icon } from "astro-icon/components";
+
+import CustomImage from "../ImageComponent.astro";
+const { hero, values } = Astro.props;
+import "@assets/css/hero/two_columns_hero.css";
+---
+
+<header class="hero">
+  <div class="two-column-hero">
+    <div class="two-column-hero__image-wrapper">
+      <CustomImage
+        classes="object-cover w-full h-full"
+        image={hero?.expand?.image}
+        lazy={false}
+      />
+    </div>
+    <article class="two-column-hero__content-wrapper content-grid">
+      {
+        values && (
+          <ul>
+            {values
+              .split(",")
+              .sort((a: string, b: string) => a.localeCompare(b))
+              .map((value: string) => (
+                <li>
+                  <Icon
+                    name="mdi:check-circle"
+                    aria-hidden="true"
+                    focusable="false"
+                    class="text-current"
+                  />
+                  {value}
+                </li>
+              ))}
+          </ul>
+        )
+      }
+      <h1>
+        {hero?.title}
+      </h1>
+      <p>
+        {hero?.excerpt}
+      </p>
+    </article>
+  </div>
+</header>
