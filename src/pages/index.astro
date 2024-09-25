@@ -27,6 +27,7 @@ const hero = data?.expand?.hero
 const pages = data?.expand?.pages
 const details = data?.expand?.site_details
 const theme_color = data?.expand?.site_details?.theme_color
+console.log(pages)
 ---
 
 <html lang={country ?? "en"}>
@@ -82,10 +83,12 @@ const theme_color = data?.expand?.site_details?.theme_color
 	<GoogleAnalytics id={details?.google_analytics} />
 	</head>
 	<body>
-		<PageNavigation floating={false} />
+		<PageNavigation floating={true} />
 		<main>
 			<PageHero hero={hero} value={details?.core_values}/>
-			<PageSection />
+			{pages.map((page: object) => (
+				<PageSection page={page}/>
+			))}
 		</main>
 		<TinyFooter details={details}/>
 	</body>

@@ -1,6 +1,24 @@
 ---
 import "@assets/css/page-section.css";
+import ImageComponent from "./ImageComponent.astro";
+const {page} = Astro.props
 ---
 <section class="page-section">
+    <div class="content-grid">
+        <header class="page-section__header">
+            <h2>{page.title}</h2>
+            {page.show_excerpt && <p>{page.excerpt}</p>}
+        </header>
+        <div class="page-section__content">
+            <article>
+                <slot set:html={page.content}/>
+            </article>
+            {page.expand.page_image && (
+                <div class="page-section__content-image">
+                    <ImageComponent image={page.expand.page_image}/>
+                </div>
+            )}
+        </div>
+    </div>
 
 </section>
