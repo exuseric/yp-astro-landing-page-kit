@@ -3,6 +3,12 @@
   text-decoration: none;
 }
 
+.floating-nav a:hover {
+  color: var(--clr-neutral-950);
+  background: linear-gradient(to bottom, var(--secondary-lighter), var(--secondary));
+  border: 1px solid var(--secondary);
+}
+
 /* Small Screen */
 @media (max-width: 50em) {
   .floating-nav {

@@ -230,10 +230,10 @@ a:not([class]) {
 
 button:hover,
 .button:hover,
-a:not([class="site-logo"]):hover {
+a:not([class]):hover {
   color: var(--clr-neutral-50);
-  background-color: var(--secondary);
-  border-color: var(--secondary-light);
+  background: linear-gradient(to bottom, var(--secondary-lighter), var(--secondary));
+  border-color: var(--secondary);
 }
 
 [data-highlight] {
@@ -247,6 +247,8 @@ a:not([class="site-logo"]):hover {
   grid-template-rows: 40px;
   align-items: center;
   justify-content: start;
+
+  width: max-content;
 }
 
 .site-logo__image {
@@ -300,6 +302,19 @@ header.hero h1 {
   display: grid;
   grid-template-columns: 40px 1fr;
   grid-template-rows: 40px;
+  gap: var(--spacing-4);
+  align-items: center;
+
+  text-decoration: none;
+  color: currentColor;
+}
+
+.tiny-footer__link>span {
+  padding: var(--spacing-2) var(--spacing-4);
+}
+
+.tiny-footer__link:hover>span {
+  background: linear-gradient(to bottom, var(--secondary-lighter), var(--secondary));
 }
 
 .tiny-footer__link>img {
