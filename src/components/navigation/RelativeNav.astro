@@ -58,7 +58,6 @@ const details = data?.expand?.site_details
       const elHeight = header.getBoundingClientRect().height;
       document.addEventListener("scroll", () => {
         const scrollY = window.scrollY || document.documentElement.scrollTop;
-      console.log(scrollY, elHeight);
       if (scrollY > elHeight) {
         header.setAttribute("data-visible", "true");
       } else {
