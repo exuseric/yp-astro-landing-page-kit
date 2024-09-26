@@ -1,7 +1,7 @@
 ---
 import { Icon } from "astro-icon/components";
 
-import CustomImage from "../ImageComponent.astro";
+import ImageComponent from "@components/ImageComponent.astro";
 const { hero, values } = Astro.props;
 import "@assets/css/hero/two_columns_hero.css";
 ---
@@ -9,10 +9,10 @@ import "@assets/css/hero/two_columns_hero.css";
 <header class="hero">
   <div class="two-column-hero">
     <div class="two-column-hero__image-wrapper">
-      <CustomImage
-        classes="object-cover w-full h-full"
+      <ImageComponent
         image={hero?.expand?.image}
         lazy={false}
+        fixedSize={500}
       />
     </div>
     <article class="two-column-hero__content-wrapper content-grid">

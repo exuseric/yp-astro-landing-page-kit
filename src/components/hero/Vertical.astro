@@ -1,6 +1,6 @@
 ---
 import { Image } from "astro:assets";
-import { getImageUrl } from "../../pb";
+import { getImageUrl } from "@src/pocketbase";
 import { Icon } from "astro-icon/components";
 const { hero, values } = Astro.props;
 
@@ -29,7 +29,7 @@ const {
         >
             {
                 values &&
-                    values.split(",").map((value) => (
+                    values.split(",").map((value:string) => (
                         <li class="flex flex-col items-center gap-1 px-4 py-2  text-base font-semibold">
                             <Icon
                                 name="mdi:check-circle"

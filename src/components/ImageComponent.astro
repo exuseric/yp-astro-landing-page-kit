@@ -1,12 +1,38 @@
 ---
+interface Props {
+  image: {
+    [key: string]: string
+  },
+  lazy?: boolean,
+  fixedSize?: number
+}
 import { Image } from "astro:assets";
 import { getImageUrl } from "@src/pocketbase";
-const { image, lazy } = Astro.props;
+const { image, lazy, fixedSize } = Astro.props;
+console.log(image)
 ---
 
 {
   image && (
-    <Image
+    fixedSize ? (
+            <Image
+      src={getImageUrl({
+        collection: image,
+        filename: image?.image,
+      })}
+      widths={[Number(fixedSize)]}
+      sizes={`${fixedSize}px`}
+      inferSize
+      alt={image?.alt}
+      title={image?.title}
+      loading={lazy ? "lazy" : "eager"}
+      decoding={lazy ? "async" : "sync"}
+      fetchpriority={lazy ? "low" : "high"}
+      class="hero-image"
+      />
+    ) : (
+
+      <Image
       src={getImageUrl({
         collection: image,
         filename: image?.image,
@@ -20,6 +46,7 @@ const { image, lazy } = Astro.props;
       decoding={lazy ? "async" : "sync"}
       fetchpriority={lazy ? "low" : "high"}
       class="hero-image"
-    />
+      />
+    )
   )
 }

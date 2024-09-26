@@ -1,7 +1,7 @@
 ---
 import { Icon } from "astro-icon/components";
 import "@assets/css/hero/vertical_blocks_hero.css";
-import ImageComponent from "../ImageComponent.astro";
+import ImageComponent from "@components/ImageComponent.astro";
 const { hero, values } = Astro.props;
 ---
 
@@ -17,9 +17,9 @@ const { hero, values } = Astro.props;
     </article>
     <div class="vertical-block-hero__content-wrapper-image">
       <ImageComponent
-        classes="vertical-block-hero__content-wrapper-image__img"
         image={hero?.expand?.image}
         lazy={false}
+        fixedSize={500}
       />
     </div>
   </div>

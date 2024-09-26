@@ -2,17 +2,17 @@
 import "@assets/css/hero/horizontal_blocks_hero.css";
 import { Icon } from "astro-icon/components";
 
-import CustomImage from "../ImageComponent.astro";
+import ImageComponent from "@components/ImageComponent.astro";
 const { hero, values } = Astro.props;
 ---
 
 <header class="hero horizontal-blocks-hero content-grid" data-large-screen>
   <div class="horizontal-blocks-hero__wrapper">
     <div class="horizontal-blocks-hero__image-wrapper">
-      <CustomImage
-        classes="object-cover w-full h-full sm:h-full"
+      <ImageComponent
         image={hero?.expand?.image}
         lazy={false}
+        fixedSize={500}
       />
     </div>
     <article class="horizontal-blocks-hero__content-wrapper">
