@@ -1,8 +1,10 @@
 ---
 import Basic from "@components/card/Basic.astro"
+import ChessCard from "./card/ChessCard.astro"
 
 const {cards, type} = Astro.props
 console.log({type})
 ---
 
 {type === "basic" && <Basic cards={cards} />}
+{type === "chess" && <ChessCard cards={cards}/>}
