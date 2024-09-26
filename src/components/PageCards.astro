@@ -1,0 +1,8 @@
+---
+import Basic from "@components/card/Basic.astro"
+
+const {cards, type} = Astro.props
+console.log({type})
+---
+
+{type === "basic" && <Basic cards={cards} />}

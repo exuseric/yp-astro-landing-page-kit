@@ -1,0 +1,21 @@
+---
+interface Card {
+    [key: string]: {
+        [key: string]: any
+    }
+}
+import ImageComponent from "@components/ImageComponent.astro"
+import "@assets/css/card/basic.css"
+const {cards} = Astro.props
+---
+<div class="basic-card__grid">
+    {cards.map((card: Card) => (
+        <article>
+            <ImageComponent image={card.expand.image} fixedSize={500} lazy={true} />
+            <div>
+                <h3>{card.title}</h3>
+                <slot set:html={card.body} />
+            </div>
+        </article>
+    ))}
+</div>
